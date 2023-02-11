@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { toast } from 'react-hot-toast'
-import Jumbotron from '../components/card/Jumbotron'
+import Jumbotron from '../../components/card/Jumbotron'
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -39,9 +39,9 @@ const Register = () => {
   return (
     <>
         <Jumbotron title="Register page" />
-        <div className="">
+        <div className="container mt-5">
             <div className="row">
-                <div className="col">
+                <div className="col-md-6 offset-md-3">
                     <form onSubmit={handelSubmit} >                       
                         <input 
                          type="text"
@@ -49,21 +49,23 @@ const Register = () => {
                          placeholder="Full Name"
                          autoFocus
                          onChange={(e)=> setName(e.target.value)}
-
+                         className="form-control mb-4 p-2"
                         />
                         <input 
                           type="email"
                           value={email}
                           placeholder="E-mail"
                           onChange={(e)=> setEmail(e.target.value)}
+                          className="form-control mb-4 p-2"
                         />
                         <input
                           type="password"
                           value={password} 
                           placeholder="Password"
                           onChange={(e)=> setPassword(e.target.value)}
+                          className="form-control mb-4 p-2"
                         />
-                        <button type="submit">submit</button>
+                        <button type="submit" className="btn btn-primary">submit</button>
                     </form>
                 </div>
             </div>
