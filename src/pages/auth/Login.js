@@ -6,13 +6,13 @@ import { useAuth } from '../../context/auth';
 
 const Login = () => {
   const [auth, setAuth] = useAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('test@gmail.com');
+  const [password, setPassword] = useState('12345678');
 
   const handelLogin = async (e) => {
     e.preventDefault()
     try {
-      const URL = `${process.env.REACT_APP_API_KEY}/login` 
+      const URL = `/login` 
       const {data} = await axios.post(
         URL,
         {

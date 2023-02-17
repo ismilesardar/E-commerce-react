@@ -6,6 +6,8 @@ import Register from './pages/auth/Register';
 import { BrowserRouter } from 'react-router-dom';
 import Login from './pages/auth/Login';
 import Menu from './components/nav/Menu';
+import PrivateRoute from './components/routes/PrivateRoute';
+import DashBoard from './pages/user/DashBoard';
 
 function App() {
   return (
@@ -17,6 +19,9 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/dashboard' element={<PrivateRoute />}>
+          <Route path='user' element={<DashBoard />} />
+        </Route>
       </Routes>
       </BrowserRouter>
     </>

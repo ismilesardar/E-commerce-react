@@ -10,11 +10,9 @@ const Register = () => {
     
     const handelSubmit = async (e)=> {
         e.preventDefault();
-        // const API =  process.env.REACT_APP_API_KEY;
         try {
             const {data} = await axios.post(
-                `${process.env.REACT_APP_API_KEY}/register`,
-                // `http://127.0.0.1:8000/api/v1/register`,
+                `/register`,
                 {
                     name,
                     email,
