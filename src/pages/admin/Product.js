@@ -3,7 +3,7 @@ import Jumbotron from "../../components/card/Jumbotron";
 import AdminMenu from "../../components/nav/AdminMenu";
 import { useAuth } from "../../context/auth";
 
-const AdminDashboard = () => {
+const AdminProduct = () => {
   //context
   const [auth, setAuth] = useAuth();
 
@@ -26,4 +26,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+export default AdminProduct;
