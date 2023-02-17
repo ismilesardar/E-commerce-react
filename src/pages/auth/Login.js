@@ -1,13 +1,16 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Jumbotron from '../../components/card/Jumbotron';
 import { useAuth } from '../../context/auth';
 
 const Login = () => {
   const [auth, setAuth] = useAuth();
-  const [email, setEmail] = useState('test@gmail.com');
-  const [password, setPassword] = useState('12345678');
+  const [email, setEmail] = useState('ismile@gmail.com');
+  const [password, setPassword] = useState('1234567');
+  const navigate = useNavigate();
+  const location = useLocation()
 
   const handelLogin = async (e) => {
     e.preventDefault()
@@ -29,6 +32,10 @@ const Login = () => {
         localStorage.setItem("auth", JSON.stringify(data));
         setAuth({...auth,user:data.Customer,token:data.Token});
         toast.success("Login Success...");
+        navigate(
+          location.state || `/dashboard/${data?.Customer?.role === 1 ? 'admin' : 'user'}`
+        );
+        // console.log(data.Customer)
       }
 
     } catch (error) {
