@@ -1,8 +1,12 @@
 import React from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/auth";
+import useCategory from "../../hooks/useCategory";
 
 const Menu = () => {
+  //custom hook
+  const categories = useCategory();
+  //context api
   const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
 
@@ -16,13 +20,35 @@ const Menu = () => {
     <>
       <ul
         style={{ height: "50px" }}
-        className="nav d-flex justify-content-center shadow-sm mb-2 "
+        className="nav d-flex justify-content-end shadow-sm mb-2 "
       >
         <li className="nav-item">
           <NavLink to="/" className="nav-link">
             HOME
           </NavLink>
         </li>
+
+        <div className="dropdown">
+          <li>
+            <NavLink  className="nav-link pointer dropdown-toggle"
+              data-bs-toggle="dropdown">
+            CATEGORIES
+            </NavLink>
+            <ul className="dropdown-menu"
+              style={{overflow: "scroll" }}>
+                <li>
+                  <NavLink className="nav-link" to="/categories">
+                  All Categories
+                  </NavLink>
+                </li>
+                {categories?.map((ele)=>(
+                  <li key={ele._id} >
+                    <NavLink className="nav-link" to={`/category/${ele.slug}`}>{ele.name}</NavLink>
+                  </li>
+                ))}
+            </ul>
+          </li>
+        </div>
 
         {!auth?.user ? (
           <>
@@ -51,8 +77,9 @@ const Menu = () => {
                 <li>
                   <NavLink
                     className="nav-link"
-                    to={`/dashboard/${auth?.user?.role===1 ? "admin" : "user"
-                      }`}
+                    to={`/dashboard/${
+                      auth?.user?.role === 1 ? "admin" : "user"
+                    }`}
                   >
                     Dashboard
                   </NavLink>
@@ -60,7 +87,7 @@ const Menu = () => {
 
                 <li className="nav-item pointer">
                   <Link onClick={handelClick} className="nav-link text-black">
-                    LOGOUT
+                    Logout
                   </Link>
                 </li>
               </ul>
