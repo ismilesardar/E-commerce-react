@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 import useCategory from "../../hooks/useCategory";
 
@@ -10,7 +10,7 @@ const Menu = () => {
   const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
 
-  const handelClick = () => {
+  const handelLogout = () => {
     setAuth({ ...auth, user: null, token: "" });
     localStorage.removeItem("auth");
     navigate("/login");
@@ -66,12 +66,12 @@ const Menu = () => {
         ) : (
           <div className="dropdown">
             <li>
-              <Link
+              <NavLink
                 className="nav-link pointer dropdown-toggle"
                 data-bs-toggle="dropdown"
               >
                 {auth?.user?.name?.toUpperCase()}
-              </Link>
+              </NavLink>
 
               <ul className="dropdown-menu">
                 <li>
@@ -86,9 +86,9 @@ const Menu = () => {
                 </li>
 
                 <li className="nav-item pointer">
-                  <Link onClick={handelClick} className="nav-link text-black">
+                  <NavLink onClick={handelLogout} className="nav-link text-black">
                     Logout
-                  </Link>
+                  </NavLink>
                 </li>
               </ul>
             </li>

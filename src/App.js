@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter,Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import { Toaster } from "react-hot-toast";
 import Register from "./pages/auth/Register";
@@ -11,6 +11,8 @@ import AdminRoute from "./components/routes/AdminRoute";
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminCategory from "./pages/admin/Category";
 import AdminProduct from "./pages/admin/Product";
+import AdminProducts from "./pages/admin/Products";
+import AdminProductUpdate from "./pages/admin/ProductUpdate";
 
 const PageNotFound = () => {
   return (
@@ -38,6 +40,11 @@ function App() {
             <Route path="admin" element={<AdminDashboard />} />
             <Route path="admin/category" element={<AdminCategory />} />
             <Route path="admin/product" element={<AdminProduct />} />
+            <Route path="admin/products" element={<AdminProducts />} />
+            <Route
+              path="admin/product/update/:slug"
+              element={<AdminProductUpdate />}
+            />
           </Route>
           <Route path="*" element={<PageNotFound />} replace />
         </Routes>

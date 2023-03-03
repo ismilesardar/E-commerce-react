@@ -1,15 +1,17 @@
-import { Select } from "antd";
+// import { ExclamationCircleFilled } from "@ant-design/icons";
+import { /*Modal,*/ Select } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Jumbotron from "../../components/card/Jumbotron";
 import AdminMenu from "../../components/nav/AdminMenu";
 import { useAuth } from "../../context/auth";
 
 const { Option } = Select;
+// const { confirm } = Modal;
 
-const AdminProduct = () => {
+const AdminProductUpdate = () => {
   //context
   const [auth, setAuth] = useAuth();
 
@@ -22,14 +24,24 @@ const AdminProduct = () => {
   const [category, setCategory] = useState("");
   const [shipping, setShipping] = useState("");
   const [quantity, setQuantity] = useState("");
+  const [id, setId] = useState("");
+  // const [answer, setAnswer] = useState(false);
+  // console.log(answer)
   //hook
   const navigate = useNavigate();
+  const params = useParams();
 
+  //lode catagories
   useEffect(() => {
-    lodeCategories();
+    lodeCatagories();
   }, []);
 
-  const lodeCategories = async () => {
+  //lode catagories
+  useEffect(() => {
+    loadProduct();
+  }, []);
+
+  const lodeCatagories = async () => {
     try {
       const { data } = await axios.get("/categoryAll");
       setCategories(data.All);
@@ -37,14 +49,31 @@ const AdminProduct = () => {
       console.log(error);
     }
   };
-  // name,description,price,category,quantity,shipping,photo
+// console.log(id);
+  const loadProduct = async () => {
+    try {
+      const { data } = await axios.get(`/product/${params.slug}`);
+      // console.log(data)
+      const proDet = data.Single;
+      // console.log(proDet);
+      setName(proDet.name);
+      setDescription(proDet.description);
+      setPrice(proDet.price);
+      setCategory(proDet.category._id);
+      setShipping(proDet.shipping);
+      setQuantity(proDet.quantity);
+      setId(proDet._id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //form handel
   const handelSubmit = async (e) => {
     e.preventDefault();
     try {
       const productData = new FormData();
-      productData.append("photo", photo);
+      photo && productData.append("photo", photo);
       productData.append("name", name);
       productData.append("description", description);
       productData.append("price", price);
@@ -53,18 +82,58 @@ const AdminProduct = () => {
       productData.append("quantity", quantity);
 
       //api calling
-      const { data } = await axios.post("/product", productData);
+      const { data } = await axios.post(`/product/update/${id}`, productData);
+      const updatePro = data.UpdateProduct;
       if (data?.error) {
         toast.error(data.error);
       } else {
-        toast.success(`"${data.product.name} is created"`);
+        toast.success(`"${updatePro.name} is updated"`);
         navigate("/dashboard/admin/products");
       }
     } catch (error) {
       console.log(error);
-      toast.error("product create failed. Try again..");
+      toast.error("product updated failed. Try again..");
     }
   };
+
+  //ant model
+  // const handelAnswer = () => {
+  //   confirm({
+  //     title: "Are you sure, Delete this product?",
+  //     icon: <ExclamationCircleFilled />,
+  //     content: "Some descriptions",
+  //     okText: "Yes",
+  //     okType: "danger",
+  //     cancelText: "No",
+  //     onOk() {
+  //       setAnswer(true);
+  //       // console.log("Ok");
+  //     },
+  //     onCancel() {
+  //       setAnswer(false);
+  //     },
+  //   });
+  // };
+
+  //Handel Delete
+  const handelDelete = async () => {
+    try {
+      // handelAnswer();
+      let answer = window.confirm("Are you sure, Delete this product?")
+      // console.log(answer);
+      if (!answer) return;
+
+      //call api
+      const { data } = await axios.delete(`/product/remove/${id}`);
+      toast.success(`${data.name} is Deleted!`);
+      navigate("/dashboard/admin/products");
+    } catch (error) {
+      console.log(error);
+      toast.error("Delete failed. Try again.");
+    }
+  };
+  // console.log(photo)
+// console.log(`${process.env.REACT_APP_API_KEY}/product/photo/${id}`)
   return (
     <>
       <Jumbotron title={auth?.user?.name} subTitle="Admin Dashboard" />
@@ -75,12 +144,21 @@ const AdminProduct = () => {
             <AdminMenu />
           </div>
           <div className="col-md-9">
-            <div className="p-3 mt-2 mb-2 h4 bg-light">Create Products</div>
+            <div className="p-3 mt-2 mb-2 h4 bg-light">Update Product</div>
 
-            {photo && (
+            {photo ? (
               <div className="text-center">
                 <img
                   src={URL.createObjectURL(photo)}
+                  alt="product"
+                  className="img img-responsive"
+                  height="200px"
+                />
+              </div>
+            ) : (
+              <div className="text-center">
+                <img
+                  src={`${process.env.REACT_APP_API_KEY}/product/photo/${id}`}
                   alt="product"
                   className="img img-responsive"
                   height="200px"
@@ -159,13 +237,22 @@ const AdminProduct = () => {
               onChange={(e) => setQuantity(e.target.value)}
             />
 
-            <button
-              type="submit"
-              onClick={handelSubmit}
-              className="btn btn-primary md-5"
-            >
-              Submit
-            </button>
+            <div className="d-flex justify-content-between">
+              <button
+                type="submit"
+                onClick={handelSubmit}
+                className="btn btn-primary m-3 md-5"
+              >
+                Update
+              </button>
+              <button
+                type="submit"
+                onClick={handelDelete}
+                className="btn btn-danger m-3 md-5"
+              >
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -173,4 +260,4 @@ const AdminProduct = () => {
   );
 };
 
-export default AdminProduct;
+export default AdminProductUpdate;

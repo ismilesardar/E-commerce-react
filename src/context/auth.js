@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from 'axios';
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
@@ -13,8 +13,6 @@ const AuthProvider = ({ children }) => {
   // axios config
   axios.defaults.baseURL = process.env.REACT_APP_API_KEY;
   axios.defaults.headers.common["Authorization"] = auth?.token;
-  axios.defaults.headers.post["Content-Type"] =
-    "application/x-www-form-urlencoded";
 
   useEffect(() => {
     const data = localStorage.getItem("auth");
@@ -34,3 +32,4 @@ const AuthProvider = ({ children }) => {
 const useAuth = () => useContext(AuthContext);
 
 export { useAuth, AuthProvider };
+
