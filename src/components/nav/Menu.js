@@ -23,8 +23,13 @@ const Menu = () => {
         className="nav d-flex justify-content-end shadow-sm mb-2 "
       >
         <li className="nav-item">
-          <NavLink to="/" className="nav-link">
+          <NavLink to="/" aria-current="page" className="nav-link">
             HOME
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink to="/shop" aria-current="page" className="nav-link">
+            SHOP
           </NavLink>
         </li>
 

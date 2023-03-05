@@ -17,7 +17,7 @@ const Home = () => {
   useEffect(() => {
     if(page === 1) return;
     lodeMore();
-  }, []);
+  }, [page]);
 
   const getTotal = async () => {
     try {
@@ -93,6 +93,7 @@ const Home = () => {
             onClick={(e) => {
               e.preventDefault();
               setPage(page + 1);
+              // alert('Hello')
             }}
           >
             {loading ? "Loading..." : "Load more"}
