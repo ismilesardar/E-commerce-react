@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 import useCategory from "../../hooks/useCategory";
+import Search from "../forms/SearchFrom";
 
 const Menu = () => {
   //custom hook
@@ -35,25 +36,30 @@ const Menu = () => {
 
         <div className="dropdown">
           <li>
-            <NavLink  className="nav-link pointer dropdown-toggle"
-              data-bs-toggle="dropdown">
-            CATEGORIES
+            <NavLink
+              className="nav-link pointer dropdown-toggle"
+              data-bs-toggle="dropdown"
+            >
+              CATEGORIES
             </NavLink>
-            <ul className="dropdown-menu"
-              style={{overflow: "scroll" }}>
-                <li>
-                  <NavLink className="nav-link" to="/categories">
+            <ul className="dropdown-menu" style={{ overflow: "scroll" }}>
+              <li>
+                <NavLink className="nav-link" to="/categories">
                   All Categories
+                </NavLink>
+              </li>
+              {categories?.map((ele) => (
+                <li key={ele._id}>
+                  <NavLink className="nav-link" to={`/category/${ele.slug}`}>
+                    {ele.name}
                   </NavLink>
                 </li>
-                {categories?.map((ele)=>(
-                  <li key={ele._id} >
-                    <NavLink className="nav-link" to={`/category/${ele.slug}`}>{ele.name}</NavLink>
-                  </li>
-                ))}
+              ))}
             </ul>
           </li>
         </div>
+
+        <Search />
 
         {!auth?.user ? (
           <>
@@ -91,7 +97,10 @@ const Menu = () => {
                 </li>
 
                 <li className="nav-item pointer">
-                  <NavLink onClick={handelLogout} className="nav-link text-black">
+                  <NavLink
+                    onClick={handelLogout}
+                    className="nav-link text-black"
+                  >
                     Logout
                   </NavLink>
                 </li>
