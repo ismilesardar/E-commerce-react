@@ -1,9 +1,11 @@
 import { Badge } from "antd";
 import React from "react";
+import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../../context/cart";
 
 const ProductCard = ({ p }) => {
-    
+  const [cart, setCart] = useCart();    
   const navigate = useNavigate();
 
   return (
@@ -49,6 +51,11 @@ const ProductCard = ({ p }) => {
         <button
           className="btn btn-outline-primary col card-button"
           style={{ borderBottomLeftRadius: "5px" }}
+          onClick={()=>{
+            setCart([...cart, p]);
+            localStorage.setItem("cart",JSON.stringify([...cart, p]));
+            toast.success('Add to Cart Success');
+          }}
         >
           Add to Cart
         </button>
