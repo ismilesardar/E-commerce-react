@@ -32,6 +32,7 @@ function App() {
       <BrowserRouter>
         <Menu />
         <Toaster />
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
@@ -40,6 +41,7 @@ function App() {
           <Route path="/product/:slug" element={<ProductView />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+
           <Route path="/dashboard" element={<PrivateRoute />}>
             <Route path="user" element={<DashBoard />} />
           </Route>
@@ -54,6 +56,7 @@ function App() {
               element={<AdminProductUpdate />}
             />
           </Route>
+          
           <Route path="*" element={<PageNotFound />} replace />
         </Routes>
       </BrowserRouter>
