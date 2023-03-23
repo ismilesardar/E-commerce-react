@@ -12,12 +12,12 @@ const Menu = () => {
   //context api
   const [auth, setAuth] = useAuth();
   const [cart, setCart] = useCart();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handelLogout = () => {
     setAuth({ ...auth, user: null, token: "" });
     localStorage.removeItem("auth");
-    navigate("/login");
+    // navigate("/login");
   };
 
   return (
@@ -115,6 +115,7 @@ const Menu = () => {
                   <NavLink
                     onClick={handelLogout}
                     className="nav-link text-black"
+                    to='/login'
                   >
                     Logout
                   </NavLink>

@@ -17,6 +17,8 @@ import Shop from "./pages/Shop";
 import Search from "./pages/Search";
 import ProductView from "./pages/ProductView";
 import Cart from "./pages/Cart";
+import UsersProfile from "./pages/user/Profile";
+import UsersOrders from "./pages/user/Orders";
 
 const PageNotFound = () => {
   return (
@@ -44,6 +46,8 @@ function App() {
 
           <Route path="/dashboard" element={<PrivateRoute />}>
             <Route path="user" element={<DashBoard />} />
+            <Route path="user/profile" element={<UsersProfile />} />
+            <Route path="user/order" element={<UsersOrders />} />
           </Route>
 
           <Route path="/dashboard" element={<AdminRoute />}>

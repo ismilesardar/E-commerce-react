@@ -8,7 +8,7 @@ const ProductCardHorizontal = ({ p, remove = true }) => {
   const removeFormCart=(productId)=>{
     let myCart = [...cart];
     let index = myCart.findIndex((item)=> item._id === productId);
-    myCart.slice(index,1);
+    myCart.splice(index,1);
     setCart(myCart);
     localStorage.setItem("cart",JSON.stringify(myCart));
   }
@@ -50,7 +50,7 @@ const ProductCardHorizontal = ({ p, remove = true }) => {
           </p>
           {remove && (
             <p
-              className="text-danger md-2 m-2"
+              className="text-danger md-2 m-2 pointer"
               onClick={() => removeFormCart(p._id)}
             >
               Remove
