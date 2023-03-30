@@ -15,7 +15,7 @@ const Search = () => {
             : `Found ${values?.results?.length} products`
         }
       />
-
+ 
       <div className="container mt-3">
         <div className="row">
           {values?.results?.map((p) => (
