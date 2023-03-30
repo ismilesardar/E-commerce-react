@@ -51,7 +51,7 @@ const UserCartSidebar = () => {
       setLoading(false);
       localStorage.removeItem("cart");
       setCart([]);
-      navigate('/dashboard/user/order');
+      navigate('/dashboard/user/orders');
       toast.success("Payment successful");
     } catch (error) {
       console.log(error);

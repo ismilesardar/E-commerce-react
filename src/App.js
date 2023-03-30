@@ -1,24 +1,25 @@
-import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
 import { Toaster } from "react-hot-toast";
-import Register from "./pages/auth/Register";
-import Login from "./pages/auth/Login";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
 import Menu from "./components/nav/Menu";
-import PrivateRoute from "./components/routes/PrivateRoute";
-import DashBoard from "./pages/user/DashBoard";
 import AdminRoute from "./components/routes/AdminRoute";
-import AdminDashboard from "./pages/admin/Dashboard";
+import PrivateRoute from "./components/routes/PrivateRoute";
 import AdminCategory from "./pages/admin/Category";
+import AdminDashboard from "./pages/admin/Dashboard";
+import AdminOrders from "./pages/admin/Orders";
 import AdminProduct from "./pages/admin/Product";
 import AdminProducts from "./pages/admin/Products";
 import AdminProductUpdate from "./pages/admin/ProductUpdate";
-import Shop from "./pages/Shop";
-import Search from "./pages/Search";
-import ProductView from "./pages/ProductView";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
 import Cart from "./pages/Cart";
-import UsersProfile from "./pages/user/Profile";
+import Home from "./pages/Home";
+import ProductView from "./pages/ProductView";
+import Search from "./pages/Search";
+import Shop from "./pages/Shop";
+import DashBoard from "./pages/user/DashBoard";
 import UsersOrders from "./pages/user/Orders";
+import UsersProfile from "./pages/user/Profile";
 
 const PageNotFound = () => {
   return (
@@ -47,7 +48,7 @@ function App() {
           <Route path="/dashboard" element={<PrivateRoute />}>
             <Route path="user" element={<DashBoard />} />
             <Route path="user/profile" element={<UsersProfile />} />
-            <Route path="user/order" element={<UsersOrders />} />
+            <Route path="user/orders" element={<UsersOrders />} />
           </Route>
 
           <Route path="/dashboard" element={<AdminRoute />}>
@@ -59,6 +60,7 @@ function App() {
               path="admin/product/update/:slug"
               element={<AdminProductUpdate />}
             />
+            <Route path="admin/orders" element={<AdminOrders />} />
           </Route>
           
           <Route path="*" element={<PageNotFound />} replace />

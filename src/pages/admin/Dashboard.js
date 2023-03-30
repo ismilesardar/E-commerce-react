@@ -6,7 +6,7 @@ import AdminMenu from "../../components/nav/AdminMenu";
 const AdminDashboard = () => {
   //context
   const [auth, setAuth] = useAuth();
-
+ 
   return (
     <>
       <Jumbotron title={auth?.user?.name} subTitle="Admin Dashboard" />
